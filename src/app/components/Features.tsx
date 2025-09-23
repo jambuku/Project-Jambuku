@@ -5,7 +5,7 @@ import { Trees, ShieldCheck, Leaf } from "lucide-react";
 const BRAND = {
   green: "#4CAF50",
   red: "#FF3D3D",
-  ink: "#0f172a", // slate-900
+  ink: "#0f172a", 
 };
 
 const items = [
@@ -38,7 +38,6 @@ export default function Features() {
     }}
     >
 
-      {/* divider halus di atas biar transisi dari hero mulus */}
       <div className="absolute -top-6 left-0 right-0 h-6 rounded-t-[24px] bg-white/60 backdrop-blur" />
 
       <div className="max-w-7xl mx-auto px-6 py-16 sm:py-20 lg:py-28">
@@ -62,7 +61,6 @@ export default function Features() {
           </p>
         </motion.div>
 
-        {/* cards asimetris (anti-template) */}
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {items.map((f, i) => (
             <motion.article
@@ -74,13 +72,11 @@ export default function Features() {
               className={[
                 "group relative overflow-hidden rounded-3xl border shadow-lg",
                 "bg-white/70 backdrop-blur",
-                // asimetri: kartu tengah “pop” ke atas, terakhir sedikit ke bawah
                 i === 1 ? "md:-mt-6" : "",
                 i === 2 ? "md:mt-6" : "",
               ].join(" ")}
               style={{ borderColor: "#e2e8f0" }}
             >
-              {/* aksen border gradient halus saat hover */}
               <div
                 className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
                 style={{
@@ -94,7 +90,6 @@ export default function Features() {
               />
 
               <div className="relative p-6">
-                {/* icon kuat & jelas */}
                 <div
                   className="grid h-12 w-12 place-items-center rounded-2xl ring-1 ring-black/5 mb-4"
                   style={{ backgroundColor: `${BRAND.green}1A` }}
@@ -111,7 +106,6 @@ export default function Features() {
                 </p>
               </div>
 
-              {/* garis aksen bawah (merah) bikin premium */}
               <div
                 className="h-1 w-full"
                 style={{ background:

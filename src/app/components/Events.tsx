@@ -6,7 +6,7 @@ import { Calendar, MapPin, ArrowRight } from "lucide-react";
 const BRAND = { green: "#4CAF50", red: "#FF3D3D", ink: "#0f172a" };
 
 type EventItem = {
-  date: string; // ISO string atau label pendek
+  date: string;
   title: string;
   location: string;
   desc: string;

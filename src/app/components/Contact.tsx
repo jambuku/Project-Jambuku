@@ -47,7 +47,7 @@ export default function Contact() {
               <p className="text-sm text-slate-700">
                 <span className="font-semibold">Telepon/WhatsApp:</span> <br />
                 <a href="https://wa.me/6285786628379" target="_blank" rel="noreferrer" className="text-jambu-green hover:underline">
-                  +62 812 3456 7890
+                  +62 857 8662 8379
                 </a>
               </p>
             </div>
@@ -89,7 +89,6 @@ export default function Contact() {
             </div>
           </motion.div>
 
-          {/* Map */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}

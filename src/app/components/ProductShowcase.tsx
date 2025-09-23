@@ -1,174 +1,204 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ShoppingBag, Star } from "lucide-react";
-import { WaveTop } from "./SectionDivider";
+import { Crown, ShoppingBag, ShieldCheck, Star } from "lucide-react";
 
-const BRAND = {
-  green: "#4CAF50",
-  red: "#FF3D3D",
-  ink: "#0f172a",
-};
+const BRAND = { green: "#4CAF50", red: "#FF3D3D", ink: "#0f172a" };
 
-type Prod = {
+type Featured = {
   name: string;
+  tagline: string;
   desc: string;
   image: string;
   url?: string;
-  badge?: "Best Seller" | "Baru" | "Favorit";
-  size?: "lg" | "md" | "sm";
+  rating?: number; // 0 - 5 (opsional)
 };
 
-const products: Prod[] = [
+const featured: Featured[] = [
   {
-    name: "Sambal Jambu",
-    desc: "Pedas segar, pas buat nasi hangat.",
+    name: "Sambal Jambu Signature",
+    tagline: "Pedas segar khas Gemblakan",
+    desc:
+      "Rasa pedas buah jambu yang bersih dan wangi—pas untuk lauk rumahan maupun restoran.",
     image:
-      "https://images.unsplash.com/photo-1713374989663-e5b165462fef?q=80&w=1170&auto=format&fit=crop",
-    url: "#", // TODO: ganti link Tokopedia/Shopee/IG Shop
-    badge: "Best Seller",
-    size: "lg",
+      "https://images.unsplash.com/photo-1604908554007-0775322b737f?q=80&w=1600&auto=format&fit=crop",
+    url: "#",
+    rating: 4.9,
   },
   {
-    name: "Dodol Jambu",
-    desc: "Manis legit dengan aroma jambu air.",
+    name: "Dodol Jambu Gula Merah",
+    tagline: "Legit, lembut, premium",
+    desc:
+      "Tekstur chewy lembut dengan aroma jambu air. Cocok jadi hantaran dan suguhan acara.",
     image:
-      "https://images.unsplash.com/photo-1679493419398-671bc52317e4?q=80&w=687&auto=format",
+      "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?q=80&w=1600&auto=format&fit=crop",
     url: "#",
-    size: "md",
-  },
-  {
-    name: "Selai Jambu",
-    desc: "Lembut, cocok untuk roti & pastry.",
-    image:
-      "https://images.unsplash.com/photo-1615421416673-fa5a539c6ffb?q=80&w=687&auto=format&fit=crop",
-    url: "#",
-    badge: "Favorit",
-    size: "sm",
+    rating: 4.8,
   },
   {
     name: "Keripik Daun Jambu",
-    desc: "Renyah gurih—teman ngemil sehat.",
+    tagline: "Renyah gurih, light snack",
+    desc:
+      "Daun jambu yang diolah renyah—unik, ringan, dan nagih. Teman minum teh favorit.",
     image:
-      "https://images.unsplash.com/photo-1528751014936-863e6e7a319c?q=80&w=686&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?q=80&w=1600&auto=format&fit=crop",
     url: "#",
-    size: "md",
-  },
-  {
-    name: "Kerupuk Jambu",
-    desc: "Inovasi rasa jambu yang unik.",
-    image:
-      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=1600&auto=format&fit=crop",
-    url: "#",
-    badge: "Baru",
-    size: "sm",
+    rating: 4.7,
   },
 ];
 
-function cls(...s: (string | false | undefined)[]) {
-  return s.filter(Boolean).join(" ");
-}
-
-export default function ProductShowcase() {
+export default function FeaturedProducts() {
   return (
     <section
-    className="relative isolate bg-white"
-    style={{
+      id="featured"
+      className="relative isolate bg-white"
+      style={{
         backgroundImage: `
-        radial-gradient(600px 300px at 0% 0%, #4CAF5014, transparent),
-        radial-gradient(600px 300px at 100% 100%, #FF3D3D14, transparent)
+          radial-gradient(700px 320px at 0% 10%, ${BRAND.green}10, transparent),
+          radial-gradient(700px 320px at 100% 90%, ${BRAND.red}10, transparent)
         `,
-    }}
+      }}
     >
-      <div className="max-w-7xl mx-auto px-6 py-16 sm:py-20 lg:py:28">
-        {/* Header */}
-        <div className="flex items-end justify-between gap-4 flex-wrap">
-          <div>
-            <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight"
-                style={{ color: BRAND.ink }}>
-              Produk Unggulan
-            </h2>
-            <p className="text-slate-600">
-              Rangkaian olahan jambu air yang segar, unik, dan berkualitas.
-            </p>
-          </div>
-          <a
-            href="#"
-            aria-label="Kunjungi toko"
-            className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-white shadow-sm hover:shadow-md"
-            style={{ backgroundColor: BRAND.green }}
+      {/* border gradient tipis atas */}
+      <div
+        className="absolute top-0 left-0 right-0 h-[2px]"
+        style={{ background: `linear-gradient(90deg, ${BRAND.green}, ${BRAND.red})` }}
+      />
+
+      <div className="max-w-7xl mx-auto px-6 py-16 sm:py-20 lg:py-28">
+        {/* Head */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center"
+        >
+          <span className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium text-slate-600 bg-white/70 backdrop-blur">
+            <Crown className="h-4 w-4" color={BRAND.green} />
+            Produk Unggulan
+          </span>
+          <h2
+            className="mt-3 text-2xl sm:text-3xl font-semibold tracking-tight"
+            style={{ color: BRAND.ink }}
           >
-            Kunjungi Toko <ShoppingBag className="h-4 w-4" />
+            Pilihan Premium Jambuku
+          </h2>
+          <p className="mt-1 text-slate-600">
+            Tiga produk istimewa yang paling dicari—rasa premium, kualitas terjaga.
+          </p>
+        </motion.div>
+
+        {/* Grid editorial: 1 besar + 2 stack */}
+        <div className="mt-10 grid lg:grid-cols-3 gap-6">
+          {/* Spotlight besar (kolom 2 lebar) */}
+          <FeaturedCard item={featured[0]} large />
+
+          {/* Dua pendamping (stack) */}
+          <div className="grid gap-6">
+            <FeaturedCard item={featured[1]} />
+            <FeaturedCard item={featured[2]} />
+          </div>
+        </div>
+
+        {/* CTA bar kecil */}
+        <div className="mt-8 flex items-center justify-center gap-3">
+          <a
+            href="#products"
+            className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-slate-900 hover:bg-slate-50"
+          >
+            <ShoppingBag className="h-4 w-4" /> Lihat Semua Produk
           </a>
         </div>
+      </div>
+    </section>
+  );
+}
 
-        {/* Grid masonry-lite */}
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {products.map((p, i) => (
-            <motion.article
-              key={p.name}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.5, delay: i * 0.06 }}
-              className={cls(
-                "group relative overflow-hidden rounded-3xl border bg-white shadow-md hover:shadow-lg transition-shadow",
-                // masonry feel: variasi tinggi gambar
-                p.size === "lg" && "lg:col-span-2",
-              )}
-            >
-              <div className={cls(
-                "relative overflow-hidden",
-                p.size === "lg" ? "aspect-[16/9]" :
-                p.size === "md" ? "aspect-[4/3]" : "aspect-[5/6]"
-              )}>
-                <img
-                  src={p.image}
-                  alt={p.name}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.06]"
-                />
-                {/* Overlay hover */}
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent opacity-80" />
-                {/* Badge */}
-                {p.badge && (
-                  <div
-                    className="absolute left-4 top-4 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium text-white shadow"
-                    style={{ backgroundColor: BRAND.red }}
-                  >
-                    <Star className="h-3.5 w-3.5" /> {p.badge}
-                  </div>
-                )}
-              </div>
+function Stars({ value = 0 }: { value?: number }) {
+  // tampilkan 5 bintang, setengah jika perlu (anggap .5 dibulatkan ke bawah visual)
+  const full = Math.floor(value);
+  const rest = value - full;
+  return (
+    <div className="flex items-center gap-0.5 text-amber-500">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <Star
+          key={i}
+          className={`h-4 w-4 ${i < full ? "fill-current" : "opacity-30"}`}
+        />
+      ))}
+      <span className="ml-1 text-[11px] text-slate-600">{value.toFixed(1)}</span>
+    </div>
+  );
+}
 
-              <div className="relative p-4">
-                <h3 className="text-base sm:text-lg font-semibold"
-                    style={{ color: BRAND.ink }}>
-                  {p.name}
-                </h3>
-                <p className="mt-1 text-sm text-slate-600">{p.desc}</p>
+function FeaturedCard({ item, large = false }: { item: Featured; large?: boolean }) {
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.5 }}
+      className={[
+        "group relative overflow-hidden rounded-3xl border bg-white/80 backdrop-blur shadow-md hover:shadow-xl hover:-translate-y-1 transition-all",
+        large ? "lg:col-span-2" : "",
+      ].join(" ")}
+    >
+      {/* media */}
+      <div className={large ? "relative aspect-[21/9]" : "relative aspect-[16/10]"}>
+        <img
+          src={item.image}
+          alt={item.name}
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+          loading="lazy"
+        />
+        {/* overlay gradient bawah utk teks */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+        {/* badge halal */}
+        <div className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-emerald-50 text-emerald-700 px-2.5 py-1 text-[11px] font-medium border border-emerald-200 shadow-sm">
+          <ShieldCheck className="h-3.5 w-3.5" />
+          Halal: Terverifikasi
+        </div>
+        {/* crown kecil */}
+        {large && (
+          <div className="absolute right-4 top-4 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-medium text-slate-700 shadow ring-1 ring-black/5 inline-flex items-center gap-1.5">
+            <Crown className="h-3.5 w-3.5" color={BRAND.red} />
+            Spotlight
+          </div>
+        )}
+      </div>
 
-                <div className="mt-3 flex items-center justify-between">
-                  <a
-                    href={p.url || "#"}
-                    className="inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm text-slate-900 hover:bg-slate-50"
-                    aria-label={`Beli ${p.name}`}
-                  >
-                    <ShoppingBag className="h-4 w-4" /> Beli / Info
-                  </a>
+      {/* content */}
+      <div className="p-5 sm:p-6">
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <h3 className="text-lg sm:text-xl font-semibold text-slate-900">
+              {item.name}
+            </h3>
+            <div className="text-sm text-slate-600">{item.tagline}</div>
+          </div>
+          {item.rating ? <Stars value={item.rating} /> : null}
+        </div>
 
-                  {/* garis aksen halus */}
-                  <div
-                    className="h-1 w-20 rounded-full"
-                    style={{ background: `linear-gradient(90deg, ${BRAND.green}, ${BRAND.red})` }}
-                    aria-hidden
-                  />
-                </div>
-              </div>
-            </motion.article>
-          ))}
+        <p className="mt-2 text-sm text-slate-600 max-w-2xl">{item.desc}</p>
+
+        <div className="mt-4 flex items-center justify-between">
+          <a
+            href={item.url || "#"}
+            className="inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm text-slate-900 hover:bg-slate-50"
+          >
+            <ShoppingBag className="h-4 w-4" />
+            Beli / Info
+          </a>
+          <div
+            className="h-1 w-20 rounded-full"
+            style={{
+              background: `linear-gradient(90deg, ${BRAND.green}, ${BRAND.red})`,
+            }}
+            aria-hidden
+          />
         </div>
       </div>
-      <WaveTop />
-    </section>
+    </motion.article>
   );
 }

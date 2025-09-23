@@ -15,7 +15,6 @@ export default function Footer() {
            radial-gradient(700px 300px at 100% 100%, ${BRAND.red}10, transparent)`,
       }}
     >
-      {/* top border gradient tipis */}
       <div
         className="h-[2px] w-full"
         style={{ background: `linear-gradient(90deg, ${BRAND.green}, ${BRAND.red})` }}
@@ -29,7 +28,7 @@ export default function Footer() {
             <div>
               <div className="text-xl font-semibold text-slate-900">Jambuku</div>
               <div className="text-sm text-slate-600">
-                Olahan Jambu Air — Lokal, Premium, Berkelanjutan
+                Olahan Jambu Air, Lokal, Premium, Berkelanjutan.
               </div>
             </div>
           </div>
@@ -78,17 +77,16 @@ export default function Footer() {
           <div>
             <div className="text-sm font-semibold text-slate-900">Ikuti Kami</div>
                 <div className="mt-3 flex items-center gap-4 text-slate-600">
-                <a href="#" className="hover:text-slate-900 transition">
+                <a href="https://www.instagram.com/jambuku.ga" className="hover:text-slate-900 transition">
                     <Instagram className="h-5 w-5" />
                 </a>
-                <a href="#" className="hover:text-slate-900 transition">
+                <a href="https://www.youtube.com/@JambukuGemblakanAtas" className="hover:text-slate-900 transition">
                     <Youtube className="h-5 w-5" />
                 </a>
                 </div>
             </div>
         </div>
 
-        {/* Copyright */}
         <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-slate-500">
           <div>© {new Date().getFullYear()} Jambuku. All rights reserved.</div>
           <div>Design & build with love in Yogyakarta.</div>

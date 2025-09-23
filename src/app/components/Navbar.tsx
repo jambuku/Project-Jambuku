@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Phone, Menu, X } from "lucide-react";
 
@@ -30,10 +31,22 @@ export default function Navbar() {
       style={{ borderColor: "rgba(0,0,0,0.06)" }}
     >
       <div className="flex items-center justify-between px-4 py-2">
-        {/* Brand (pakai logo) */}
+        {/* Brand (pakai logo tajam + lebih besar) */}
         <Link href="/" className="flex items-center gap-2" onClick={close}>
-          <img src="images/logo-jambuku.png" alt="Jambuku" className="h-7 w-auto" />
-          <span className="font-bold tracking-tight text-slate-800 text-lg">Jambuku</span>
+          <div className="relative h-8 w-[36px] md:h-9 md:w-[40px]">
+            <Image
+              src="/images/logo-jambuku.png" 
+              alt="Jambuku"
+              fill         
+              sizes="40px"
+              priority     
+              quality={95} 
+              className="object-contain drop-shadow-[0_1px_1px_rgba(0,0,0,0.25)]"
+            />
+          </div>
+          <span className="font-bold tracking-tight text-slate-800 text-lg">
+            Jambuku
+          </span>
         </Link>
 
         {/* Desktop menu */}
@@ -45,9 +58,8 @@ export default function Navbar() {
           <a href="#contact" className="hover:text-emerald-600">Kontak</a>
         </div>
 
-        {/* CTA */}
         <a
-          href="https://wa.me/62857XXXXXXX?text=Halo%20Jambuku,%20saya%20tertarik%20produk%20ini."
+          href="https://wa.me/6285786628379"
           target="_blank"
           rel="noreferrer"
           className="hidden md:inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm text-white font-medium shadow hover:shadow-md transition"
@@ -56,30 +68,28 @@ export default function Navbar() {
           <Phone className="h-4 w-4" /> WhatsApp
         </a>
 
-        {/* Mobile toggler */}
         <button
-        className="md:hidden grid place-items-center h-9 w-9 rounded-full border bg-black/70 shadow"
-        onClick={() => setOpen(!open)}
-        aria-label="Toggle menu"
+          className="md:hidden grid place-items-center h-9 w-9 rounded-full border bg-black/70 text-white shadow"
+          onClick={() => setOpen(!open)}
+          aria-label="Toggle menu"
         >
-        {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
 
-{/* Mobile menu */}
-{open && (
-  <div className="absolute top-full left-0 right-0 mt-2 px-4">
-    <div className="overflow-hidden rounded-3xl border bg-white/95 backdrop-blur-xl shadow-xl">
-      <div className="flex flex-col p-4 text-sm font-medium text-slate-700">
-        <a href="#about" className="px-3 py-2 rounded-lg hover:bg-slate-50">Tentang</a>
-        <a href="#products" className="px-3 py-2 rounded-lg hover:bg-slate-50">Produk</a>
-        <a href="#certs" className="px-3 py-2 rounded-lg hover:bg-slate-50">Sertifikasi</a>
-        <a href="#events" className="px-3 py-2 rounded-lg hover:bg-slate-50">Event</a>
-        <a href="#contact" className="px-3 py-2 rounded-lg hover:bg-slate-50">Kontak</a>
-      </div>
-    </div>
-  </div>
-)}
+      {open && (
+        <div className="absolute top-full left-0 right-0 mt-2 px-4">
+          <div className="overflow-hidden rounded-3xl border bg-white/95 backdrop-blur-xl shadow-xl">
+            <div className="flex flex-col p-4 text-sm font-medium text-slate-700">
+              <a href="#about" className="px-3 py-2 rounded-lg hover:bg-slate-50" onClick={close}>Tentang</a>
+              <a href="#products" className="px-3 py-2 rounded-lg hover:bg-slate-50" onClick={close}>Produk</a>
+              <a href="#certs" className="px-3 py-2 rounded-lg hover:bg-slate-50" onClick={close}>Sertifikasi</a>
+              <a href="#events" className="px-3 py-2 rounded-lg hover:bg-slate-50" onClick={close}>Event</a>
+              <a href="#contact" className="px-3 py-2 rounded-lg hover:bg-slate-50" onClick={close}>Kontak</a>
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }
