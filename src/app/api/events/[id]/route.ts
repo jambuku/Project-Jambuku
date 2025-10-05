@@ -1,98 +1,67 @@
 import { NextResponse } from 'next/server';
 import { supabaseServerFromAuthHeader } from '@/lib/supabaseServer';
-import { eventUpdateSchema } from '@/lib/schemas/event';
+import { eventCreateSchema } from '@/lib/schemas/event';
 import { revalidateTag } from 'next/cache';
 
-type Ctx = { params: { id: string } };
-
-export async function GET(req: Request, { params }: Ctx) {
+export async function GET(req: Request) {
   try {
+    const url = new URL(req.url);
+    const published = url.searchParams.get('published');
+    const search = url.searchParams.get('search');
+    const category = url.searchParams.get('category');
+    const from = url.searchParams.get('from');
+    const to = url.searchParams.get('to');
+    const limit = Math.min(Number(url.searchParams.get('limit') ?? 12), 50);
+    const offset = Math.max(Number(url.searchParams.get('offset') ?? 0), 0);
+
     const sb = supabaseServerFromAuthHeader(req.headers.get('authorization'));
+    let query = sb.from('events').select('*', { count: 'exact' });
 
-    const { data, error } = await sb
-      .from('events')
-      .select('*')
-      .eq('id', params.id)
-      .single();
+    if (published === 'true') query = query.eq('is_published', true);
+    if (published === 'false') query = query.eq('is_published', false);
+    if (category) query = query.eq('category_id', category);
+    if (from) query = query.gte('start_at', from);
+    if (to) query = query.lte('start_at', to);
+    if (search) query = query.or(`title.ilike.%${search}%,description.ilike.%${search}%`);
 
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 404 });
-    }
-    return NextResponse.json(data);
-  } catch (e: any) {
-    return NextResponse.json({ error: e?.message ?? 'Unknown error' }, { status: 500 });
+    query = query.order('start_at', { ascending: true }).range(offset, offset + limit - 1);
+
+    const { data, error, count } = await query;
+    if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+
+    return NextResponse.json({ data, count, limit, offset });
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : 'Unknown error';
+    return NextResponse.json({ error: msg }, { status: 500 });
   }
 }
 
-export async function PATCH(req: Request, { params }: Ctx) {
+export async function POST(req: Request) {
   try {
     const sb = supabaseServerFromAuthHeader(req.headers.get('authorization'));
 
-    // wajib: user harus login (RLS juga akan ngecek owner)
     const { data: userRes, error: userErr } = await sb.auth.getUser();
     if (userErr || !userRes?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
+    const userId = userRes.user.id;
 
-    const body = await req.json().catch(() => ({}));
-    const parsed = eventUpdateSchema.safeParse(body);
+    const json = await req.json();
+    const parsed = eventCreateSchema.safeParse(json);
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'Validation failed', issues: parsed.error.flatten() },
-        { status: 422 }
-      );
+      return NextResponse.json({ error: 'Validation failed', issues: parsed.error.flatten() }, { status: 422 });
     }
 
-    // Update dan minta row balik—kalau tidak ketemu, error 404
-    const { data, error } = await sb
-      .from('events')
-      .update(parsed.data)
-      .eq('id', params.id)
-      .select('*')
-      .single();
+    const payload = { ...parsed.data, created_by: userId };
+    const { data, error } = await sb.from('events').insert(payload).select().single();
+    if (error) return NextResponse.json({ error: error.message }, { status: 400 });
 
-    if (error) {
-      // Supabase akan kasih error saat single() tidak ketemu
-      return NextResponse.json({ error: error.message }, { status: 404 });
-    }
-
-    // ✅ invalidate cache halaman yang tag-nya 'events'
+    // revalidate daftar event
     revalidateTag('events');
 
-    return NextResponse.json(data);
-  } catch (e: any) {
-    return NextResponse.json({ error: e?.message ?? 'Unknown error' }, { status: 500 });
-  }
-}
-
-export async function DELETE(req: Request, { params }: Ctx) {
-  try {
-    const sb = supabaseServerFromAuthHeader(req.headers.get('authorization'));
-
-    // wajib: user harus login (RLS juga akan ngecek owner)
-    const { data: userRes, error: userErr } = await sb.auth.getUser();
-    if (userErr || !userRes?.user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    // Supabase delete bisa pakai select() untuk dapat row balik—biar bisa bedain 404 vs sukses
-    const { data, error } = await sb
-      .from('events')
-      .delete()
-      .eq('id', params.id)
-      .select('id')
-      .single();
-
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 404 });
-    }
-
-    // ✅ invalidate cache
-    revalidateTag('events');
-
-    // 200 OK + info minimal
-    return NextResponse.json({ ok: true, id: data?.id });
-  } catch (e: any) {
-    return NextResponse.json({ error: e?.message ?? 'Unknown error' }, { status: 500 });
+    return NextResponse.json(data, { status: 201 });
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : 'Unknown error';
+    return NextResponse.json({ error: msg }, { status: 500 });
   }
 }
