@@ -89,7 +89,6 @@ export default function Footer() {
 
         <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-slate-500">
           <div>© {new Date().getFullYear()} Jambuku. All rights reserved.</div>
-          <div>Design & build with love in Yogyakarta.</div>
         </div>
       </div>
     </footer>

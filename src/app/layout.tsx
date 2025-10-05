@@ -1,23 +1,24 @@
-import "./globals.css";
-import Footer from "./components/Footer";
-import Navbar from "./components/Navbar";
+// src/app/layout.tsx
+'use client';
 
-export const metadata = {
-  title: "Jambuku — Olahan Jambu Air Premium",
-  icons: { icon: "images/logo-jambuku.png" }, 
-};
-
+import './globals.css';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import { usePathname } from 'next/navigation';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const isAdmin = pathname?.startsWith('/admin');
+
   return (
-    <html lang="id" suppressHydrationWarning>
-      <body className="min-h-screen bg-white text-gray-900">
-        <Navbar />
-        {children}
-        <Footer />
+    <html lang="id">
+      <body className={isAdmin ? 'bg-slate-50' : ''}>
+        {!isAdmin && <Navbar />}
+        <div className={isAdmin ? 'min-h-screen' : ''}>
+          {children}
+        </div>
+        {!isAdmin && <Footer />}
       </body>
     </html>
   );
 }
-
-

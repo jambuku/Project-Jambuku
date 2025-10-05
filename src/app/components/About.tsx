@@ -109,7 +109,7 @@ export default function About() {
             </div>
             <div className="rounded-2xl border bg-white p-4 text-center shadow-sm">
               <div className="text-2xl font-bold text-slate-900">3+</div>
-              <div className="text-xs text-slate-600">Kolaborasi/Program</div>
+              <div className="text-xs text-slate-600">Program</div>
             </div>
             <div className="rounded-2xl border bg-white p-4 text-center shadow-sm">
               <div className="text-2xl font-bold text-slate-900">2+</div>

@@ -4,9 +4,21 @@ import Features from "./components/Features";
 import ProductDetail from "./components/ProductDetail";
 import Trust from "./components/Trust";
 import Events from "./components/Events";
-import Contact from "./components/Contact"; 
+import Contact from "./components/Contact";
 
-export default function Home() {
+async function getEvents() {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL ?? ""}/api/events?published=true`,
+    { next: { tags: ['events'] } } // ← penting
+  );
+  if (!res.ok) return { data: [] };
+  return res.json();
+}
+
+
+export default async function Home() {
+  const { data: events = [] } = await getEvents();
+
   return (
     <main>
       <Hero />
@@ -14,8 +26,8 @@ export default function Home() {
       <Features />
       <ProductDetail />
       <Trust />
-      <Events />
-      <Contact /> 
+      <Events events={events} />
+      <Contact />
     </main>
   );
 }

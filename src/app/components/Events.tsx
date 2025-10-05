@@ -1,57 +1,31 @@
 "use client";
 
-import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Calendar, MapPin, ArrowRight, CalendarX2 } from "lucide-react";
 
 const BRAND = { green: "#4CAF50", red: "#FF3D3D", ink: "#0f172a" };
 
-type EventItem = {
-  date: string;
+export type EventRow = {
+  id: string;
+  slug: string;
   title: string;
-  location: string;
-  desc: string;
-  banner?: string;
-  ctaText?: string;
-  ctaUrl?: string;
+  description: string | null;
+  start_at: string; // ISO
+  end_at: string | null;
+  location: string | null;
+  cover_url: string | null;
+  is_published: boolean;
 };
 
-const events: EventItem[] = [
-  { date: "2025-09-09", title: "Pelatihan Photography", location: "Yogyakarta",
-    desc: "Praktik foto produk pakai HP: komposisi, lighting, styling, dan edit cepat.",
-    banner: "images/bernard.jpg",
-    ctaText: "Daftar", ctaUrl: "#" },
-  { date: "2025-09-09", title: "Pelatihan Branding", location: "Yogyakarta",
-    desc: "Dasar branding UMKM: positioning, identitas visual, dan penerapan ke kemasan/konten.",
-    banner: "images/feri.jpg",
-    ctaText: "Daftar", ctaUrl: "#" },
-];
-
-function formatDate(d: string) {
+function fmtDate(s: string) {
   try {
-    const dt = new Date(d);
-    return dt.toLocaleDateString("id-ID", { day: "2-digit", month: "short", year: "numeric" });
-  } catch { return d; }
+    return new Date(s).toLocaleString("id-ID", { dateStyle: "medium", timeStyle: "short" });
+  } catch {
+    return s;
+  }
 }
-const startOfToday = () => {
-  const n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate());
-};
 
-export default function Events() {
-  const [tab, setTab] = useState<"upcoming" | "past">("upcoming");
-
-  const { upcoming, past } = useMemo(() => {
-    const today = startOfToday().getTime();
-    const upcoming = events
-      .filter(e => new Date(e.date).getTime() >= today)
-      .sort((a,b) => +new Date(a.date) - +new Date(b.date));
-    const past = events
-      .filter(e => new Date(e.date).getTime() < today)
-      .sort((a,b) => +new Date(b.date) - +new Date(a.date));
-    return { upcoming, past };
-  }, []);
-
-  const list = tab === "upcoming" ? upcoming : past;
+export default function Events({ events = [] as EventRow[] }) {
+  const has = events.length > 0;
 
   return (
     <section
@@ -65,116 +39,104 @@ export default function Events() {
       }}
     >
       <div className="max-w-7xl mx-auto px-6 py-16 sm:py-20 lg:py-28">
-        <div className="flex items-end justify-between gap-4 flex-wrap">
-          <div>
-            <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight" style={{ color: BRAND.ink }}>
-              Event & Kegiatan
-            </h2>
-            <p className="text-slate-600">Aktivitas terbaru Jambuku. Ikut gabung bareng kami!</p>
-          </div>
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center"
+        >
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-slate-900">
+            Event Jambuku
+          </h2>
+          <p className="mt-1 text-slate-700">
+            Aktivitas terbaru Jambuku. Ikut gabung bareng kami!
+          </p>
+        </motion.div>
 
-          {/* Segmented buttons */}
-          <div
-            role="tablist"
-            aria-label="Filter event"
-            className="inline-flex items-center rounded-full border bg-white/70 backdrop-blur shadow-sm"
-          >
-            <button
-              role="tab"
-              aria-selected={tab === "upcoming"}
-              onClick={() => setTab("upcoming")}
-              className={[
-                "px-4 py-2 text-sm font-medium rounded-full transition",
-                tab === "upcoming"
-                  ? "text-white"
-                  : "text-slate-700 hover:bg-slate-50"
-              ].join(" ")}
-              style={tab === "upcoming" ? { backgroundColor: BRAND.green } : {}}
-            >
-              Mendatang
-              <span className="ml-2 inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-black/5 px-1 text-[11px] text-slate-800">
-                {upcoming.length}
-              </span>
-            </button>
-            <button
-              role="tab"
-              aria-selected={tab === "past"}
-              onClick={() => setTab("past")}
-              className={[
-                "px-4 py-2 text-sm font-medium rounded-full transition",
-                tab === "past"
-                  ? "text-white"
-                  : "text-slate-700 hover:bg-slate-50"
-              ].join(" ")}
-              style={tab === "past" ? { backgroundColor: BRAND.red } : {}}
-            >
-              Terlewat
-              <span className="ml-2 inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-black/5 px-1 text-[11px] text-slate-800">
-                {past.length}
-              </span>
-            </button>
-          </div>
-        </div>
-
-        {/* List / Empty state */}
-        {tab === "upcoming" && upcoming.length === 0 ? (
-          <div className="mt-8 rounded-3xl border bg-white/80 backdrop-blur p-8 text-center text-slate-600">
-            <div className="mx-auto grid place-items-center h-12 w-12 rounded-full border mb-3">
-              <CalendarX2 className="h-6 w-6" />
+        {!has ? (
+          // EMPTY STATE – kontras ditingkatkan
+          <div className="mt-12 rounded-3xl border border-slate-200 bg-white shadow-sm p-10 text-center">
+            <div className="mx-auto w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center ring-1 ring-emerald-300">
+              <svg width="36" height="36" viewBox="0 0 24 24" className="text-emerald-700" fill="none">
+                <rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" strokeWidth="2"/>
+                <path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" strokeWidth="2"/>
+              </svg>
             </div>
-            <div className="text-base font-medium text-slate-800">Tidak ada event dalam waktu dekat</div>
-            <p className="text-sm">Pantau halaman ini untuk info berikutnya, ya!</p>
+            <h3 className="mt-4 text-lg font-semibold text-slate-900">Belum ada event</h3>
+            <p className="mt-1 text-slate-700">
+              Pantau halaman ini untuk info berikutnya, ya!
+            </p>
+            <div className="mt-5">
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 text-sm px-4 py-2 rounded-full border border-emerald-300 text-emerald-800 bg-white hover:bg-emerald-50 transition"
+              >
+                Hubungi kami
+                <svg width="16" height="16" viewBox="0 0 24 24" className="opacity-80">
+                  <path d="M5 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+              </a>
+            </div>
           </div>
         ) : (
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {list.map((e, i) => (
+          // LIST – judul/teks lebih gelap, badge tanggal lebih jelas
+          <div className="mt-12 grid gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {events.map((e) => (
               <motion.article
-                key={e.title + e.date}
-                initial={{ opacity: 0, y: 18 }}
+                key={e.id}
+                initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.45, delay: i * 0.06 }}
-                className={[
-                  "overflow-hidden rounded-3xl border backdrop-blur transition-shadow",
-                  tab === "upcoming"
-                    ? "bg-white/80 shadow-md hover:shadow-lg"
-                    : "bg-white/70 shadow-sm hover:shadow-md"
-                ].join(" ")}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45 }}
+                className="group overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-slate-200 hover:shadow-md hover:ring-slate-300 transition"
               >
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <img
-                    src={e.banner}
-                    alt={e.title}
-                    className={[
-                      "h-full w-full object-cover transition",
-                      tab === "past" ? "grayscale" : ""
-                    ].join(" ")}
-                  />
-                  <div className="absolute left-4 top-4 inline-flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-xs font-medium text-slate-800 shadow">
-                    <Calendar className="h-3.5 w-3.5" />
-                    {formatDate(e.date)}
-                  </div>
-                </div>
-                <div className="p-5">
-                  <h3 className="text-base sm:text-lg font-semibold text-slate-900">{e.title}</h3>
-                  <div className="mt-1 flex items-center gap-2 text-xs text-slate-600">
-                    <MapPin className="h-3.5 w-3.5" /> {e.location}
-                  </div>
-                  <p className="mt-1 text-sm text-slate-600">{e.desc}</p>
-                  {tab === "upcoming" && e.ctaUrl && (
-                    <a
-                      href={e.ctaUrl}
-                      className="mt-3 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-white shadow"
-                      style={{ backgroundColor: BRAND.red }}
-                    >
-                      {e.ctaText || "Detail"} <ArrowRight className="h-4 w-4" />
-                    </a>
+                <a href={`/events/${e.slug}`} className="block relative">
+                  {e.cover_url ? (
+                    <img
+                      src={e.cover_url}
+                      alt={e.title}
+                      className="h-44 w-full object-cover"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div
+                      className="h-44 w-full"
+                      style={{ background: `linear-gradient(135deg, ${BRAND.green}22, ${BRAND.red}22)` }}
+                    />
                   )}
+                  <div className="absolute bottom-3 left-3 rounded-full bg-white/95 backdrop-blur px-3 py-1 text-xs font-medium shadow ring-1 ring-slate-300 text-slate-800">
+                    {fmtDate(e.start_at)}
+                  </div>
+                </a>
+
+                <div className="p-5">
+                  <h3 className="font-semibold text-slate-900">
+                    <a href={`/events/${e.slug}`} className="hover:underline">
+                      {e.title}
+                    </a>
+                  </h3>
+                  <p className="mt-1 text-sm text-slate-700">
+                    {e.location ? e.location : <span className="opacity-80">Lokasi menyusul</span>}
+                  </p>
+                  {e.description ? (
+                    <p className="mt-3 text-sm text-slate-800 line-clamp-3">
+                      {e.description}
+                    </p>
+                  ) : null}
+
+                  <div className="mt-4">
+                    <a
+                      href={`/events/${e.slug}`}
+                      className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-full border border-slate-300 text-slate-800 hover:bg-slate-50 transition"
+                    >
+                      Lihat detail
+                      <svg width="16" height="16" viewBox="0 0 24 24" className="opacity-80">
+                        <path d="M5 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                      </svg>
+                    </a>
+                  </div>
                 </div>
-                <div
-                  className="h-1 w-full"
-                  style={{ background: `linear-gradient(90deg, ${BRAND.green}, ${BRAND.red})` }}
-                />
               </motion.article>
             ))}
           </div>
