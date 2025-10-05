@@ -198,9 +198,6 @@ export default function AdminPage() {
       <main className="mx-auto max-w-md p-8 text-slate-900">
         <div className="rounded-2xl border border-slate-200 bg-white/90 backdrop-blur shadow-sm p-6">
           <h1 className="text-2xl font-semibold">Masuk Admin</h1>
-          <p className="text-sm text-slate-600 mt-1">
-            Gunakan akun yang sudah dibuat di <b>Supabase → Authentication → Users</b>.
-          </p>
           <form onSubmit={handleLogin} className="space-y-3 mt-5">
             <label className="block">
               <span className="text-sm">Email</span>
@@ -271,8 +268,8 @@ export default function AdminPage() {
       {/* Header */}
       <header className="rounded-2xl border border-slate-200 bg-white shadow-sm p-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-semibold">Event Admin</h1>
-          <p className="text-sm text-slate-600">Kelola event Jambuku: tambah, publikasikan, hapus.</p>
+          <h1 className="text-2xl font-semibold">Hello, Admin! Have a nice day!</h1>
+          <p className="text-sm text-slate-600">Bagian ini untuk mengelola bagian event, berguna untuk menambahkan, menghapus, dan mempublikasikan.</p>
         </div>
         <button
           onClick={handleLogout}
@@ -309,8 +306,8 @@ export default function AdminPage() {
         </div>
         <div className="grid lg:grid-cols-2 gap-4 mt-2 text-sm">
           <ol className="list-decimal ml-5 space-y-1">
-            <li>Isi data event, upload cover (opsional), lalu klik <b>Save</b>.</li>
-            <li>Gunakan <b>Publish</b> untuk tampilkan ke publik.</li>
+            <li>Isi data event, upload cover, dan lain lain.</li>
+            <li>Setelah mengisi data, jangan lupa centang "Published" untuk menampilkan. lalu klik save</li>
             <li>Semua perubahan otomatis refresh di website.</li>
           </ol>
           <ul className="space-y-1">
