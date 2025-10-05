@@ -307,7 +307,7 @@ export default function AdminPage() {
         <div className="grid lg:grid-cols-2 gap-4 mt-2 text-sm">
           <ol className="list-decimal ml-5 space-y-1">
             <li>Isi data event, upload cover, dan lain lain.</li>
-            <li>Setelah mengisi data, jangan lupa centang "Published" untuk menampilkan. lalu klik save</li>
+            <li>Setelah mengisi data, jangan lupa centang <b>Published</b> untuk menampilkan. lalu klik save</li>
             <li>Semua perubahan otomatis refresh di website.</li>
           </ol>
           <ul className="space-y-1">
