@@ -5,12 +5,12 @@ import ProductDetail from "./components/ProductDetail";
 import Trust from "./components/Trust";
 import Events from "./components/Events";
 import Contact from "./components/Contact";
+import { getBaseUrl } from "@/lib/getBaseUrl";
 
 async function getEvents() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL ?? ""}/api/events?published=true`,
-    { next: { tags: ['events'] } } // ← penting
-  );
+  const res = await fetch(`${getBaseUrl()}/api/events?published=true`, {
+  next: { revalidate: 60 }, // boleh dihapus kalau ga butuh ISR
+});
   if (!res.ok) return { data: [] };
   return res.json();
 }
