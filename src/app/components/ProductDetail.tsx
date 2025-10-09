@@ -33,7 +33,7 @@ type Item = {
   serve?: string;
   price?: string;
   origin?: string;
-  featured?: boolean; // ✅ tandai unggulan di sini
+  featured?: boolean;
 };
 
 const catalog: Item[] = [
@@ -67,7 +67,7 @@ const catalog: Item[] = [
     heat: 3,
     halal: "Terverifikasi",
     origin: "Gemblakan, Yogyakarta",
-    featured: true, // ✅ unggulan
+    featured: true, 
   },
   {
     name: "Keripik Daun Jambu Air",
@@ -383,7 +383,6 @@ export default function ProductDetail() {
   const INITIAL = 3;
   const [visible, setVisible] = useState(INITIAL);
 
-  // urutkan: featured dulu, lalu yang lain
   const sorted = useMemo(
     () =>
       [...catalog].sort((a, b) => Number(!!b.featured) - Number(!!a.featured)),
@@ -396,7 +395,6 @@ export default function ProductDetail() {
     return sorted.filter((c) => c.tag === filter);
   }, [filter, sorted]);
 
-  // spotlight ambil featured pertama; kalau ga ada, ambil item pertama
   const spotlight = filtered.find((i) => i.featured) ?? filtered[0];
   const othersAll = filtered.filter((i) => i !== spotlight);
   const others = useMemo(() => othersAll.slice(0, visible), [othersAll, visible]);

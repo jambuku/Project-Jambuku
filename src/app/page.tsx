@@ -9,7 +9,7 @@ import { getBaseUrl } from "@/lib/getBaseUrl";
 
 async function getEvents() {
   const res = await fetch(`${getBaseUrl()}/api/events?published=true`, {
-  next: { revalidate: 60 }, // boleh dihapus kalau ga butuh ISR
+  next: { revalidate: 60 },
 });
   if (!res.ok) return { data: [] };
   return res.json();

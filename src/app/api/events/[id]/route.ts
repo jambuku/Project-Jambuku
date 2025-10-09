@@ -1,4 +1,3 @@
-// src/app/api/events/[id]/route.ts
 import { NextResponse } from 'next/server';
 import { supabaseServerFromAuthHeader } from '@/lib/supabaseServer';
 import { revalidateTag } from 'next/cache';

@@ -55,7 +55,6 @@ export default function Events({ events = [] as EventRow[] }) {
         </motion.div>
 
         {!has ? (
-          // EMPTY STATE – kontras ditingkatkan
           <div className="mt-12 rounded-3xl border border-slate-200 bg-white shadow-sm p-10 text-center">
             <div className="mx-auto w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center ring-1 ring-emerald-300">
               <svg width="36" height="36" viewBox="0 0 24 24" className="text-emerald-700" fill="none">
@@ -80,7 +79,6 @@ export default function Events({ events = [] as EventRow[] }) {
             </div>
           </div>
         ) : (
-          // LIST – judul/teks lebih gelap, badge tanggal lebih jelas
           <div className="mt-12 grid gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {events.map((e) => (
               <motion.article

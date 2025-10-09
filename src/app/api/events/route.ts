@@ -56,7 +56,6 @@ export async function POST(req: Request) {
     const { data, error } = await sb.from('events').insert(payload).select().single();
     if (error) return NextResponse.json({ error: error.message }, { status: 400 });
 
-    // revalidate daftar event
     revalidateTag('events');
 
     return NextResponse.json(data, { status: 201 });

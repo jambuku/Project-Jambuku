@@ -116,7 +116,6 @@ export default function FeaturedProducts() {
 }
 
 function Stars({ value = 0 }: { value?: number }) {
-  // tampilkan 5 bintang, setengah jika perlu (anggap .5 dibulatkan ke bawah visual)
   const full = Math.floor(value);
   const rest = value - full;
   return (

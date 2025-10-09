@@ -1,4 +1,3 @@
-// src/app/admin/page.tsx
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
@@ -16,7 +15,6 @@ type EventRow = {
   is_published: boolean;
 };
 
-// ---- API error type guard (menghindari `any`)
 type ApiError = { error: string };
 function hasApiError(x: unknown): x is ApiError {
   return !!x && typeof x === 'object' && 'error' in x;
@@ -30,7 +28,6 @@ async function getAuthHeader(): Promise<Record<string, string>> {
   return h;
 }
 
-// --- API callers ---
 async function apiListEvents() {
   const res = await fetch(`/api/events`);
   return res.json() as Promise<{ data: EventRow[]; count: number }>;
@@ -53,19 +50,15 @@ async function apiDeleteEvent(id: string) {
   const res = await fetch(`/api/events/${id}`, { method: 'DELETE', headers });
   return res.json();
 }
-// --- end API callers ---
 
 export default function AdminPage() {
-  // auth
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   const [userId, setUserId] = useState<string | null>(null);
 
-  // data
   const [events, setEvents] = useState<EventRow[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // form create
   const [title, setTitle] = useState('');
   const [startAt, setStartAt] = useState('');
   const [location, setLocation] = useState('');
@@ -74,7 +67,6 @@ export default function AdminPage() {
   const [file, setFile] = useState<File | null>(null);
   const [busy, setBusy] = useState(false);
 
-  // UX helpers
   const [q, setQ] = useState('');
   const filtered = useMemo(() => {
     const key = q.toLowerCase().trim();
@@ -192,7 +184,6 @@ export default function AdminPage() {
     await loadEvents();
   }
 
-  // ======================= UI =======================
   if (!userId) {
     return (
       <main className="mx-auto max-w-md p-8 text-slate-900">
@@ -226,7 +217,6 @@ export default function AdminPage() {
           </form>
         </div>
 
-        {/* Tutorial mini saat belum login */}
         <div className="mt-8 rounded-2xl border border-slate-200 p-5 bg-white shadow-sm">
           <div className="font-medium text-lg flex items-center gap-2">
             <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
@@ -279,7 +269,6 @@ export default function AdminPage() {
         </button>
       </header>
 
-      {/* Stats */}
       <section className="grid sm:grid-cols-3 gap-4">
         {[
           { label: 'Total', value: total },
@@ -296,7 +285,6 @@ export default function AdminPage() {
         ))}
       </section>
 
-      {/* Tutorial ringkas */}
       <section className="rounded-2xl border border-slate-200 bg-gradient-to-br from-emerald-50 to-white shadow-sm p-5">
         <div className="flex items-center justify-between">
           <div className="font-medium">Cara pakai (cepat)</div>
@@ -318,7 +306,6 @@ export default function AdminPage() {
         </div>
       </section>
 
-      {/* Create form */}
       <section
         id="create"
         className="rounded-2xl border border-slate-200 bg-white shadow-sm p-6 space-y-4"
@@ -392,7 +379,6 @@ export default function AdminPage() {
         </div>
       </section>
 
-      {/* List + search */}
       <section className="space-y-3">
         <div className="flex items-center justify-between gap-3">
           <div className="font-medium">All Events</div>
@@ -434,7 +420,6 @@ export default function AdminPage() {
                       <div className="flex items-center gap-3">
                         <div className="w-14 h-14 rounded-lg overflow-hidden bg-slate-100 flex-shrink-0">
                           {e.cover_url ? (
-                            // boleh diganti next/image kalau sudah setup
                             <img
                               src={e.cover_url}
                               alt={e.title}
