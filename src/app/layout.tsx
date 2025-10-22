@@ -11,6 +11,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="id">
+      <head>
+        {/* favicon/tab icon */}
+        <link rel="icon" href="images/logo-jambuku.png" />
+
+        <meta name="theme-color" content="#0ea5e9" />
+      </head>
       <body className={isAdmin ? 'bg-slate-50' : ''}>
         {!isAdmin && <Navbar />}
         <div className={isAdmin ? 'min-h-screen' : ''}>
