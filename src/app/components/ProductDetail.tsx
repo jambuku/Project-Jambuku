@@ -82,12 +82,12 @@ const catalog: Item[] = [
     heat: 0,
     halal: "Terverifikasi",
     origin: "Gemblakan, Yogyakarta",
-    featured: true, // ✅ unggulan
+    featured: true, //unggulan
   },
   {
     name: "Egg Roll Jambu Air",
     desc: "Egg roll renyah lembut dengan aroma jambu air segar—unik & nagih.",
-    img: "",
+    img: "images/eggroll.png",
     url: "#",
     tag: "Snack",
     weight: "200 g",
@@ -133,7 +133,7 @@ const catalog: Item[] = [
   {
     name: "Stick Jambu Air",
     desc: "Kriuk ringan dengan rasa khas jambu—teman ngemil seru.",
-    img: "",
+    img: "images/stickjambu.png",
     url: "#",
     tag: "Snack",
     weight: "150 g",
@@ -148,7 +148,7 @@ const catalog: Item[] = [
   {
     name: "Teh Daun Jambu",
     desc: "Teh herbal dari daun jambu kering—kaya antioksidan, baik untuk pencernaan.",
-    img: "",
+    img: "images/tehdaun.png",
     url: "#",
     tag: "Manis",
     weight: "10 g",
@@ -164,7 +164,7 @@ const catalog: Item[] = [
   {
     name: "Setup Jambu Air",
     desc: "Minuman segar jambu air—paling nikmat disajikan dingin.",
-    img: "",
+    img: "images/setup.png",
     url: "#",
     tag: "Manis",
     weight: "350 ml",
@@ -179,7 +179,7 @@ const catalog: Item[] = [
   {
     name: "Sirup Jambu Air",
     desc: "Sirup manis segar dari jambu—tanpa bahan tambahan buatan.",
-    img: "",
+    img: "images/sirup.png",
     url: "#",
     tag: "Manis",
     weight: "350 ml",
@@ -194,7 +194,7 @@ const catalog: Item[] = [
   {
     name: "Sari Jambu Air",
     desc: "Sari buah jambu—manis-asam seimbang, kaya vitamin.",
-    img: "",
+    img: "images/sari.png",
     url: "#",
     tag: "Manis",
     weight: "350 ml",
@@ -209,7 +209,7 @@ const catalog: Item[] = [
   {
     name: "Manisan Jambu",
     desc: "Manis-asam segar—camilan renyah yang bikin nagih.",
-    img: "",
+    img: "images/manisan.png",
     url: "#",
     tag: "Manis",
     weight: "150 g",
@@ -225,7 +225,7 @@ const catalog: Item[] = [
   {
     name: "Jambu Rasa Kurma",
     desc: "Perpaduan unik—jambu dengan sensasi manis khas kurma.",
-    img: "",
+    img: "images/kurma.png",
     url: "#",
     tag: "Manis",
     weight: "150 g",
@@ -240,7 +240,7 @@ const catalog: Item[] = [
   {
     name: "Yupi Jambu Air",
     desc: "Permen kenyal rasa jambu—manis & menyegarkan.",
-    img: "",
+    img: "images/yupi.png",
     url: "#",
     tag: "Manis",
     weight: "75 g",
@@ -255,7 +255,7 @@ const catalog: Item[] = [
   {
     name: "Puding Jambu Air",
     desc: "Dessert lembut rasa jambu—segar, manis pas.",
-    img: "",
+    img: "images/puding.png",
     url: "#",
     tag: "Manis",
     weight: "75 g",
@@ -270,7 +270,7 @@ const catalog: Item[] = [
   {
     name: "Es Dawet Jambu Air",
     desc: "Dawet kenyal berpadu jambu—santan gurih & gula merah manis.",
-    img: "",
+    img: "images/dawet.png",
     url: "#",
     tag: "Manis",
     weight: "Cup",
@@ -286,7 +286,7 @@ const catalog: Item[] = [
   {
     name: "Apem Jambu Air",
     desc: "Kue tradisional empuk dengan sentuhan aroma jambu.",
-    img: "",
+    img: "images/apem.png",
     url: "#",
     tag: "Snack",
     weight: "Pouch",
@@ -301,7 +301,7 @@ const catalog: Item[] = [
   {
     name: "Bakso Jambuku",
     desc: "Bakso kenyal dengan sentuhan jambu—gurih unik & segar.",
-    img: "",
+    img: "images/bakso.png",
     url: "#",
     tag: "Snack",
     weight: "Biji",
@@ -316,7 +316,7 @@ const catalog: Item[] = [
   {
     name: "Nugget & Lumpia Jambu",
     desc: "Gurih renyah—inovasi nugget & lumpia dengan sentuhan jambu.",
-    img: "",
+    img: "images/nugget.png",
     url: "#",
     tag: "Snack",
     weight: "125 g",
@@ -331,7 +331,7 @@ const catalog: Item[] = [
   {
     name: "Saus Jambu Air",
     desc: "Saus serbaguna—manis, asam, ada sentuhan segar jambu.",
-    img: "",
+    img: "images/saus.png",
     url: "#",
     tag: "Sambal",
     weight: "Toples",
