@@ -10,6 +10,7 @@ const items = [
   { year: "2023", title: "Kelompok Tani Lanjut", desc: "Pengukuhan kelas kemampuan Kelompok Tani Kota Yogyakarta.", icon: Award },
   { year: "2023", title: "Mitra WMK UGM", desc: "Mitra Program Wirausaha Merdeka UGM.", icon: Building2 },
   { year: "2023", title: "Juara 3 Pra Koperasi", desc: "Penghargaan Disperindakop Kota Yogyakarta.", icon: Award },
+  { year: "2025", title: "Juara 3 DIY Kelompok Petani Perempuan", desc: "Menciptakan Ketahanan Pangan Bebas Stigma Daerah DIY.", icon: Award },
 ];
 
 export default function Trust() {
