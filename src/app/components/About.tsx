@@ -74,7 +74,7 @@ export default function About() {
           </div>
           <div className="absolute -top-5 -right-4 rounded-full bg-white/90 backdrop-blur px-3 py-1 text-xs font-medium text-slate-600 shadow ring-1 ring-black/5 flex items-center gap-2">
             <Sparkles className="h-4 w-4" color={BRAND.green} />
-            Sejak 2019
+            Sejak 2018
           </div>
         </motion.div>
 
