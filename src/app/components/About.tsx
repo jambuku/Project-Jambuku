@@ -104,7 +104,7 @@ export default function About() {
 
           <div className="mt-6 grid grid-cols-3 gap-4">
             <div className="rounded-2xl border bg-white p-4 text-center shadow-sm">
-              <div className="text-2xl font-bold text-slate-900">18+</div>
+              <div className="text-2xl font-bold text-slate-900">19+</div>
               <div className="text-xs text-slate-600">Inovasi Olahan</div>
             </div>
             <div className="rounded-2xl border bg-white p-4 text-center shadow-sm">
@@ -112,7 +112,7 @@ export default function About() {
               <div className="text-xs text-slate-600">Program</div>
             </div>
             <div className="rounded-2xl border bg-white p-4 text-center shadow-sm">
-              <div className="text-2xl font-bold text-slate-900">2+</div>
+              <div className="text-2xl font-bold text-slate-900">4+</div>
               <div className="text-xs text-slate-600">Penghargaan</div>
             </div>
           </div>
