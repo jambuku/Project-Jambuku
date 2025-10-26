@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, ShoppingBag } from "lucide-react";
+import { Phone, Mail, MapPin, ShoppingBag, Instagram } from "lucide-react";
 
 const BRAND = { green: "#4CAF50", red: "#FF3D3D", ink: "#0f172a" };
 
@@ -70,23 +70,39 @@ export default function Contact() {
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-3 pt-4">
-              <a
-                href="https://wa.me/6285786628379"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-white shadow hover:shadow-md transition"
-                style={{ backgroundColor: BRAND.green }}
-              >
-                <Phone className="h-4 w-4" /> WhatsApp
-              </a>
-              <a
-                href="#products"
-                className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-slate-900 hover:bg-slate-50 transition"
-              >
-                <ShoppingBag className="h-4 w-4" /> E-Commerce
-              </a>
-            </div>
+           <div className="flex flex-wrap items-center gap-2.5 pt-4">
+            <a
+              href="https://wa.me/6285786628379"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp"
+              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm text-white shadow hover:shadow-md transition"
+              style={{ backgroundColor: BRAND.green }}
+            >
+              <Phone className="h-3.5 w-3.5" />
+              WhatsApp
+            </a>
+
+            <a
+              href="https://www.instagram.com/jambuku.ga/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm text-white shadow hover:shadow-md transition bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500"
+            >
+              <Instagram className="h-3.5 w-3.5" />
+              Instagram
+            </a>
+
+            <a
+              href="#products"
+              aria-label="E-Commerce"
+              className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm text-slate-900 hover:bg-slate-50 transition"
+            >
+              <ShoppingBag className="h-3.5 w-3.5" />
+              E-Commerce
+            </a>
+          </div>
           </motion.div>
 
           <motion.div
