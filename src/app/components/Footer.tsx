@@ -85,7 +85,7 @@ export default function Footer() {
             <div className="text-sm font-semibold text-slate-900">Kontak</div>
             <ul className="mt-3 space-y-2 text-sm text-slate-600">
               <li className="flex items-start gap-2"><Mail className="h-4 w-4" /> jambuku2018@gmail.com</li>
-              <li className="flex items-start gap-2"><Phone className="h-4 w-4" /> +62 857-8662-8379</li>
+              <li className="flex items-start gap-2"><Phone className="h-4 w-4" /> +62 858-1509-4262</li>
               <li className="flex items-start gap-2"><MapPin className="h-4 w-4" /> Balai RW Gemblakan Atas, Suryatmajan, Danurejan, Yogyakarta</li>
             </ul>
           </div>

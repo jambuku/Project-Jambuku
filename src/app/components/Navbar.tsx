@@ -59,7 +59,7 @@ export default function Navbar() {
         </div>
 
         <a
-          href="https://wa.me/6285786628379"
+          href="https://wa.me/6285815094262"
           target="_blank"
           rel="noreferrer"
           className="hidden md:inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm text-white font-medium shadow hover:shadow-md transition"
