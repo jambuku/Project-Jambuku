@@ -95,7 +95,7 @@ export default function Hero() {
               className="mt-6 flex flex-wrap items-center justify-center gap-3"
             >
               <a
-                href="https://wa.me/6285786628379"
+                href="https://wa.me/6285815094262"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-white shadow-md hover:shadow-lg"

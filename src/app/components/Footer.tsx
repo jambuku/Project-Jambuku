@@ -34,7 +34,7 @@ export default function Footer() {
           </div>
            <div className="flex flex-wrap items-center gap-2.5 pt-4">
                       <a
-                        href="https://wa.me/6285786628379"
+                        href="https://wa.me/6285815094262"
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="WhatsApp"
